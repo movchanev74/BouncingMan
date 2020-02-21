@@ -10,7 +10,7 @@ public class TouchController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100) && hit.collider.tag == GROUND_TAG)
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100) && hit.collider.CompareTag(GROUND_TAG))
         {
             Debug.Log("MouseDownClick");
             BouncingMan.JumpToPosition(hit.point);

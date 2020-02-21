@@ -30,8 +30,9 @@ public class BouncingMan : MonoBehaviour
             ScoreContoller.IncreaseScore();
             SettingsController.SetNextJumpSetting();
             currentState = BouncingManState.Jumping;
-            float jumpDuration = Vector3.Distance(transform.position, jumpPosition) / BouncingManJumpSpeed;
             animator.SetTrigger(JUMP_TRIGGER);
+
+            float jumpDuration = Vector3.Distance(transform.position, jumpPosition) / BouncingManJumpSpeed;           
             transform.DOJump(jumpPosition, SettingsController.CurrentJumpSetting.JumpHeight, 1, jumpDuration).AppendCallback(delegate
             {
                 OnJumpEnded();
@@ -68,7 +69,7 @@ public class BouncingMan : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == JUMP_PLACE_TAG)
+        if(other.CompareTag(JUMP_PLACE_TAG))
         {
             currentState = BouncingManState.ReadyToJump;
         }
@@ -76,7 +77,7 @@ public class BouncingMan : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == JUMP_PLACE_TAG && currentState != BouncingManState.Jumping)
+        if(other.CompareTag(JUMP_PLACE_TAG) && currentState != BouncingManState.Jumping)
         {
             Restart();
         }
